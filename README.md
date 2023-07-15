@@ -10,16 +10,7 @@ Biomedical entity linking (EL) consists of named entity recognition (NER) and na
 
 ## Poster @ ACL2023 for paper overview
 
-<center>
-    <a target="_blank"><img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"
-    src="./poster.png"></a>
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;">Paper Overview.</div>
-</center>
+You can view our [poster@ACL2023](./bionlp2023-poster.pdf) for a quick view of our work.
 
 # Citation
 
