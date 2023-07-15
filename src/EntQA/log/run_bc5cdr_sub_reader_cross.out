@@ -1,0 +1,63 @@
+Namespace(B=2, C=64, C_val=100, L=180, adam_epsilon=1e-06, add_topic=True, clip=1, data_dir='/mnt/data/run/BC5CDR_sub/reader_input_shift/', do_rerank=True, epochs=0, filter_span=True, fp16=True, fp16_opt_level='O1', gpus='2,3', gradient_accumulation_steps=2, init=0, init_model='/mnt/data/run/BC5CDR_sub/reader.pt', k=3, kb_dir='/mnt/data/Generative-End2End-IE/dataset/BC5CDR/kb_sub/', logging_steps=50, lr=5e-06, max_answer_len=10, max_passage_len=128, model='/mnt/data/run/BC5CDR_sub/reader.pt', no_multi_ents=False, num_answers=10, num_workers=1, oracle=False, random_positive=False, results_dir='/mnt/data/run/BC5CDR_sub/reader_results_shift/', resume_training=False, seed=42, simpleoptim=False, stride=16, thresd=0.01, type_encoder='squad2_electra_large', type_rank_loss='sum_log', type_span_loss='sum_log', use_title=True, val_bsz=32, warmup_proportion=0.06, weight_decay=0.01)
+Using device: cuda
+Some weights of the model checkpoint at ahotrod/electra_large_discriminator_squad2_512 were not used when initializing ElectraModel: ['qa_outputs.weight', 'qa_outputs.bias']
+- This IS expected if you are initializing ElectraModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing ElectraModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Data parallel across 2 GPUs 2,3
+
+[TRAIN]
+  # train samples: 2598
+  # dev samples: 2599
+  # test samples: 2744
+  # epochs:        0
+  batch size:      2
+  grad accum steps 2
+    (effective batch size w/ accumulation: 4)
+  # train steps:   0
+  # warmup steps:  0
+  learning rate:   5e-06
+  # parameters:    334095363
+/anaconda/envs/entqa/lib/python3.8/site-packages/transformers/optimization.py:306: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+Some weights of the model checkpoint at ahotrod/electra_large_discriminator_squad2_512 were not used when initializing ElectraModel: ['qa_outputs.weight', 'qa_outputs.bias']
+- This IS expected if you are initializing ElectraModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing ElectraModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Data parallel across 2 GPUs 2,3
+getting test raw predicts
+torch.Size([2744, 100, 128, 128])
+prune and evaluate test...
+test inference time 0:12:15
+per val instance inference time 0:00:00.267944
+save test results
+{"pred_total": 3667, "gold_total": 4264, "strong_correct_num": 3004}
+
+Done training | training time 0:12:21 | test recall    0.7045| test precision 0.8192 | test F1 0.7575 | 
+test LRAP 0.8694666845008533
+getting val raw predicts
+torch.Size([2599, 100, 128, 128])
+prune and evaluate val ...
+val inference time 0:11:34
+per val instance inference time 0:00:00.267207
+save val results
+{"pred_total": 3473, "gold_total": 4156, "strong_correct_num": 2847}
+val recall  0.685 | val precision 0.8198 |val F1 0.7464 |
+val LRAP 0.855106121777039

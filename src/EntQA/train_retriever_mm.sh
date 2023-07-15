@@ -1,0 +1,26 @@
+split="_snomed_sub"
+nohup python -u run_retriever.py \
+	--init_model /mnt/data/entqa/checkpoints/retriever.pt \
+	--model /mnt/data/run/mm$split/retriever.pt \
+	--data_dir /mnt/data/Generative-End2End-IE/dataset/medmention/retriever_input$split/ \
+      	--kb_dir /mnt/data/Generative-End2End-IE/dataset/medmention/kb$split/ \
+	--k 100 \
+	--num_cands 64 \
+       	--pretrained_path /mnt/data/blink/ \
+	--gpus 0,1,2,3 \
+       	--max_len 128   \
+	--mention_bsz 4096 \
+       	--entity_bsz 2048 \
+       	--epochs 50 \
+       	--B 4 \
+       	--lr 2e-6 \
+       	--rands_ratio 0.9  \
+	--logging_step 100 \
+	--warmup_proportion 0.2 \
+       	--out_dir /mnt/data/run/mm$split/reader_input/ \
+	--gradient_accumulation_steps 2 \
+       	--type_loss sum_log_nce \
+	--cands_embeds_path /mnt/data/run/mm$split/cache_embedding/candidate_embeds.npy \
+	--blink \
+	--use_title \
+       	--add_topic >> train_mm$split.out &

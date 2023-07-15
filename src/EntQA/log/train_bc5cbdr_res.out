@@ -1,0 +1,656 @@
+Namespace(B=4, adam_epsilon=1e-06, add_topic=True, blink=True, cands_embeds_path='/mnt/data/run/BC5CDR_res/cache_embedding/candidate_embeds.npy', clip=1, cross_eval=False, data_dir='/mnt/data/Generative-End2End-IE/dataset/BC5CDR/retriever_input_res/', entity_bsz=2048, epochs=50, fp16=False, fp16_opt_level='O1', gpus='4,5,6,7', gradient_accumulation_steps=2, init_model='/mnt/data/entqa/checkpoints/retriever.pt', k=100, kb_dir='/mnt/data/Generative-End2End-IE/dataset/BC5CDR/kb_res/', logging_steps=100, lr=2e-06, max_len=128, mention_bsz=4096, model='/mnt/data/run/BC5CDR_res/retriever.pt', num_cands=64, num_workers=0, out_dir='/mnt/data/run/BC5CDR_res/reader_input/', pretrained_path='/mnt/data/blink/', rands_ratio=0.9, resume_training=False, seed=42, simpleoptim=False, type_loss='sum_log_nce', use_cached_embeds=False, use_gpu_index=False, use_title=True, warmup_proportion=0.2, weight_decay=0.01)
+Using device: cuda
+begin loading data
+number of entities 256937
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+/anaconda/envs/entqa/lib/python3.8/site-packages/transformers/optimization.py:306: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+Data parallel across 4 GPUs 4,5,6,7
+/home/klu/EntQA/data_retriever.py:70: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  labels = np.array(labels)
+***** train *****
+# train samples: 2598
+# val samples: 2599
+# test samples: 2744
+# epochs: 50
+ batch size : 4
+ gradient accumulation steps 2
+ effective training batch size with accumulation: 8
+ # training steps: 16237
+ # warmup steps: 3247
+ learning rate: 2e-06
+ # parameters: 670283776
+get candidates embeddings
+
+Epoch 1
+mining hard negatives
+mining time for epoch   1 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step        100/16237 | Epoch   1 | Batch   200/  650 | Average Loss  16.0814
+Step        200/16237 | Epoch   1 | Batch   400/  650 | Average Loss  15.9335
+Step        300/16237 | Epoch   1 | Batch   600/  650 | Average Loss  12.4145
+training time for epoch   1 is 0:09:11
+Done with epoch   1 | train loss  14.4565 | validation hard recall   0.2489|validation LRAP   0.7582 | validation recall   0.2219| epoch time 0:12:28 
+------- new best val perf: -inf --> 0.221858 
+
+Epoch 2
+mining hard negatives
+mining time for epoch   2 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step        400/16237 | Epoch   2 | Batch   150/  650 | Average Loss   9.6850
+Step        500/16237 | Epoch   2 | Batch   350/  650 | Average Loss   7.8305
+Step        600/16237 | Epoch   2 | Batch   550/  650 | Average Loss   6.5889
+training time for epoch   2 is 0:09:10
+Done with epoch   2 | train loss  10.9437 | validation hard recall   0.3421|validation LRAP   0.5908 | validation recall   0.3558| epoch time 0:12:27 
+------- new best val perf: 0.221858 --> 0.355751 
+
+Epoch 3
+mining hard negatives
+mining time for epoch   3 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step        700/16237 | Epoch   3 | Batch   100/  650 | Average Loss   5.5808
+Step        800/16237 | Epoch   3 | Batch   300/  650 | Average Loss   5.3513
+Step        900/16237 | Epoch   3 | Batch   500/  650 | Average Loss   5.1627
+training time for epoch   3 is 0:09:09
+Done with epoch   3 | train loss   9.0454 | validation hard recall   0.4640|validation LRAP   0.5584 | validation recall   0.5181| epoch time 0:12:26 
+------- new best val perf: 0.355751 --> 0.518146 
+
+Epoch 4
+mining hard negatives
+mining time for epoch   4 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       1000/16237 | Epoch   4 | Batch    50/  650 | Average Loss   4.8147
+Step       1100/16237 | Epoch   4 | Batch   250/  650 | Average Loss   4.6919
+Step       1200/16237 | Epoch   4 | Batch   450/  650 | Average Loss   3.9900
+Step       1300/16237 | Epoch   4 | Batch   650/  650 | Average Loss   3.7523
+training time for epoch   4 is 0:09:09
+Done with epoch   4 | train loss   7.8367 | validation hard recall   0.5029|validation LRAP   0.5716 | validation recall   0.5616| epoch time 0:12:26 
+------- new best val perf: 0.518146 --> 0.561616 
+
+Epoch 5
+mining hard negatives
+mining time for epoch   5 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       1400/16237 | Epoch   5 | Batch   200/  650 | Average Loss   3.9099
+Step       1500/16237 | Epoch   5 | Batch   400/  650 | Average Loss   3.2484
+Step       1600/16237 | Epoch   5 | Batch   600/  650 | Average Loss   3.1501
+training time for epoch   5 is 0:09:10
+Done with epoch   5 | train loss   6.9506 | validation hard recall   0.5621|validation LRAP   0.6263 | validation recall   0.6309| epoch time 0:12:26 
+------- new best val perf: 0.561616 --> 0.630921 
+
+Epoch 6
+mining hard negatives
+mining time for epoch   6 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       1700/16237 | Epoch   6 | Batch   150/  650 | Average Loss   2.9992
+Step       1800/16237 | Epoch   6 | Batch   350/  650 | Average Loss   2.8491
+Step       1900/16237 | Epoch   6 | Batch   550/  650 | Average Loss   2.6814
+training time for epoch   6 is 0:09:09
+Done with epoch   6 | train loss   6.2530 | validation hard recall   0.5825|validation LRAP   0.6770 | validation recall   0.6506| epoch time 0:12:26 
+------- new best val perf: 0.630921 --> 0.650605 
+
+Epoch 7
+mining hard negatives
+mining time for epoch   7 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       2000/16237 | Epoch   7 | Batch   100/  650 | Average Loss   2.6034
+Step       2100/16237 | Epoch   7 | Batch   300/  650 | Average Loss   2.0828
+Step       2200/16237 | Epoch   7 | Batch   500/  650 | Average Loss   1.8794
+training time for epoch   7 is 0:09:08
+Done with epoch   7 | train loss   5.6608 | validation hard recall   0.6649|validation LRAP   0.7080 | validation recall   0.7336| epoch time 0:12:25 
+------- new best val perf: 0.650605 --> 0.733648 
+
+Epoch 8
+mining hard negatives
+mining time for epoch   8 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       2300/16237 | Epoch   8 | Batch    50/  650 | Average Loss   2.1058
+Step       2400/16237 | Epoch   8 | Batch   250/  650 | Average Loss   1.9375
+Step       2500/16237 | Epoch   8 | Batch   450/  650 | Average Loss   1.7342
+Step       2600/16237 | Epoch   8 | Batch   650/  650 | Average Loss   1.7771
+training time for epoch   8 is 0:09:07
+Done with epoch   8 | train loss   5.1860 | validation hard recall   0.6703|validation LRAP   0.7258 | validation recall   0.7453| epoch time 0:12:24 
+------- new best val perf: 0.733648 --> 0.745335 
+
+Epoch 9
+mining hard negatives
+mining time for epoch   9 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       2700/16237 | Epoch   9 | Batch   200/  650 | Average Loss   1.7051
+Step       2800/16237 | Epoch   9 | Batch   400/  650 | Average Loss   1.3357
+Step       2900/16237 | Epoch   9 | Batch   600/  650 | Average Loss   1.4688
+training time for epoch   9 is 0:09:07
+Done with epoch   9 | train loss   4.7759 | validation hard recall   0.7068|validation LRAP   0.7692 | validation recall   0.7726| epoch time 0:12:24 
+------- new best val perf: 0.745335 --> 0.772606 
+
+Epoch 10
+mining hard negatives
+mining time for epoch  10 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       3000/16237 | Epoch  10 | Batch   150/  650 | Average Loss   1.4780
+Step       3100/16237 | Epoch  10 | Batch   350/  650 | Average Loss   1.1627
+Step       3200/16237 | Epoch  10 | Batch   550/  650 | Average Loss   1.2012
+training time for epoch  10 is 0:09:07
+Done with epoch  10 | train loss   4.4203 | validation hard recall   0.7311|validation LRAP   0.7899 | validation recall   0.7997| epoch time 0:12:24 
+------- new best val perf: 0.772606 --> 0.799672 
+
+Epoch 11
+mining hard negatives
+mining time for epoch  11 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       3300/16237 | Epoch  11 | Batch   100/  650 | Average Loss   0.9659
+Step       3400/16237 | Epoch  11 | Batch   300/  650 | Average Loss   1.1413
+Step       3500/16237 | Epoch  11 | Batch   500/  650 | Average Loss   0.8694
+training time for epoch  11 is 0:09:07
+Done with epoch  11 | train loss   4.1120 | validation hard recall   0.7372|validation LRAP   0.7689 | validation recall   0.8048| epoch time 0:12:24 
+------- new best val perf: 0.799672 --> 0.804798 
+
+Epoch 12
+mining hard negatives
+mining time for epoch  12 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       3600/16237 | Epoch  12 | Batch    50/  650 | Average Loss   1.0945
+Step       3700/16237 | Epoch  12 | Batch   250/  650 | Average Loss   0.8254
+Step       3800/16237 | Epoch  12 | Batch   450/  650 | Average Loss   0.9193
+Step       3900/16237 | Epoch  12 | Batch   650/  650 | Average Loss   0.7109
+training time for epoch  12 is 0:09:07
+Done with epoch  12 | train loss   3.8388 | validation hard recall   0.7468|validation LRAP   0.8001 | validation recall   0.8120| epoch time 0:12:24 
+------- new best val perf: 0.804798 --> 0.811975 
+
+Epoch 13
+mining hard negatives
+mining time for epoch  13 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       4000/16237 | Epoch  13 | Batch   200/  650 | Average Loss   0.6895
+Step       4100/16237 | Epoch  13 | Batch   400/  650 | Average Loss   0.6368
+Step       4200/16237 | Epoch  13 | Batch   600/  650 | Average Loss   0.6335
+training time for epoch  13 is 0:09:06
+Done with epoch  13 | train loss   3.5935 | validation hard recall   0.7534|validation LRAP   0.8038 | validation recall   0.8220| epoch time 0:12:22 
+------- new best val perf: 0.811975 --> 0.822022 
+
+Epoch 14
+mining hard negatives
+mining time for epoch  14 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       4300/16237 | Epoch  14 | Batch   150/  650 | Average Loss   0.5243
+Step       4400/16237 | Epoch  14 | Batch   350/  650 | Average Loss   0.5199
+Step       4500/16237 | Epoch  14 | Batch   550/  650 | Average Loss   0.5239
+training time for epoch  14 is 0:09:02
+Done with epoch  14 | train loss   3.3742 | validation hard recall   0.7491|validation LRAP   0.8148 | validation recall   0.8136| epoch time 0:12:18 
+
+
+Epoch 15
+mining hard negatives
+mining time for epoch  15 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       4600/16237 | Epoch  15 | Batch   100/  650 | Average Loss   0.5344
+Step       4700/16237 | Epoch  15 | Batch   300/  650 | Average Loss   0.4146
+Step       4800/16237 | Epoch  15 | Batch   500/  650 | Average Loss   0.4188
+training time for epoch  15 is 0:09:01
+Done with epoch  15 | train loss   3.1784 | validation hard recall   0.7591|validation LRAP   0.8247 | validation recall   0.8216| epoch time 0:12:17 
+
+
+Epoch 16
+mining hard negatives
+mining time for epoch  16 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       4900/16237 | Epoch  16 | Batch    50/  650 | Average Loss   0.4614
+Step       5000/16237 | Epoch  16 | Batch   250/  650 | Average Loss   0.4386
+Step       5100/16237 | Epoch  16 | Batch   450/  650 | Average Loss   0.2516
+Step       5200/16237 | Epoch  16 | Batch   650/  650 | Average Loss   0.4418
+training time for epoch  16 is 0:09:01
+Done with epoch  16 | train loss   3.0039 | validation hard recall   0.7522|validation LRAP   0.8162 | validation recall   0.8173| epoch time 0:12:17 
+
+
+Epoch 17
+mining hard negatives
+mining time for epoch  17 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       5300/16237 | Epoch  17 | Batch   200/  650 | Average Loss   0.3918
+Step       5400/16237 | Epoch  17 | Batch   400/  650 | Average Loss   0.3047
+Step       5500/16237 | Epoch  17 | Batch   600/  650 | Average Loss   0.2865
+training time for epoch  17 is 0:09:01
+Done with epoch  17 | train loss   2.8463 | validation hard recall   0.7522|validation LRAP   0.8275 | validation recall   0.8196| epoch time 0:12:16 
+
+
+Epoch 18
+mining hard negatives
+mining time for epoch  18 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       5600/16237 | Epoch  18 | Batch   150/  650 | Average Loss   0.2299
+Step       5700/16237 | Epoch  18 | Batch   350/  650 | Average Loss   0.1885
+Step       5800/16237 | Epoch  18 | Batch   550/  650 | Average Loss   0.5215
+training time for epoch  18 is 0:09:01
+Done with epoch  18 | train loss   2.7064 | validation hard recall   0.7584|validation LRAP   0.8182 | validation recall   0.8230| epoch time 0:12:17 
+------- new best val perf: 0.822022 --> 0.823047 
+
+Epoch 19
+mining hard negatives
+mining time for epoch  19 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       5900/16237 | Epoch  19 | Batch   100/  650 | Average Loss   0.3077
+Step       6000/16237 | Epoch  19 | Batch   300/  650 | Average Loss   0.2134
+Step       6100/16237 | Epoch  19 | Batch   500/  650 | Average Loss   0.1870
+training time for epoch  19 is 0:09:01
+Done with epoch  19 | train loss   2.5772 | validation hard recall   0.7588|validation LRAP   0.8284 | validation recall   0.8222| epoch time 0:12:16 
+
+
+Epoch 20
+mining hard negatives
+mining time for epoch  20 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       6200/16237 | Epoch  20 | Batch    50/  650 | Average Loss   0.3542
+Step       6300/16237 | Epoch  20 | Batch   250/  650 | Average Loss   0.1943
+Step       6400/16237 | Epoch  20 | Batch   450/  650 | Average Loss   0.2044
+Step       6500/16237 | Epoch  20 | Batch   650/  650 | Average Loss   0.2886
+training time for epoch  20 is 0:09:00
+Done with epoch  20 | train loss   2.4596 | validation hard recall   0.7599|validation LRAP   0.8296 | validation recall   0.8233| epoch time 0:12:15 
+------- new best val perf: 0.823047 --> 0.823252 
+
+Epoch 21
+mining hard negatives
+mining time for epoch  21 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       6600/16237 | Epoch  21 | Batch   200/  650 | Average Loss   0.2509
+Step       6700/16237 | Epoch  21 | Batch   400/  650 | Average Loss   0.1691
+Step       6800/16237 | Epoch  21 | Batch   600/  650 | Average Loss   0.2579
+training time for epoch  21 is 0:08:59
+Done with epoch  21 | train loss   2.3530 | validation hard recall   0.7630|validation LRAP   0.8238 | validation recall   0.8284| epoch time 0:12:15 
+------- new best val perf: 0.823252 --> 0.828378 
+
+Epoch 22
+mining hard negatives
+mining time for epoch  22 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       6900/16237 | Epoch  22 | Batch   150/  650 | Average Loss   0.1833
+Step       7000/16237 | Epoch  22 | Batch   350/  650 | Average Loss   0.2710
+Step       7100/16237 | Epoch  22 | Batch   550/  650 | Average Loss   0.2027
+training time for epoch  22 is 0:09:00
+Done with epoch  22 | train loss   2.2563 | validation hard recall   0.7664|validation LRAP   0.8326 | validation recall   0.8276| epoch time 0:12:16 
+
+
+Epoch 23
+mining hard negatives
+mining time for epoch  23 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       7200/16237 | Epoch  23 | Batch   100/  650 | Average Loss   0.2041
+Step       7300/16237 | Epoch  23 | Batch   300/  650 | Average Loss   0.1193
+Step       7400/16237 | Epoch  23 | Batch   500/  650 | Average Loss   0.2330
+training time for epoch  23 is 0:09:01
+Done with epoch  23 | train loss   2.1673 | validation hard recall   0.7584|validation LRAP   0.8316 | validation recall   0.8251| epoch time 0:12:16 
+
+
+Epoch 24
+mining hard negatives
+mining time for epoch  24 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       7500/16237 | Epoch  24 | Batch    50/  650 | Average Loss   0.3447
+Step       7600/16237 | Epoch  24 | Batch   250/  650 | Average Loss   0.2105
+Step       7700/16237 | Epoch  24 | Batch   450/  650 | Average Loss   0.1383
+Step       7800/16237 | Epoch  24 | Batch   650/  650 | Average Loss   0.1123
+training time for epoch  24 is 0:09:00
+Done with epoch  24 | train loss   2.0843 | validation hard recall   0.7595|validation LRAP   0.8237 | validation recall   0.8222| epoch time 0:12:16 
+
+
+Epoch 25
+mining hard negatives
+mining time for epoch  25 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       7900/16237 | Epoch  25 | Batch   200/  650 | Average Loss   0.2157
+Step       8000/16237 | Epoch  25 | Batch   400/  650 | Average Loss   0.1176
+Step       8100/16237 | Epoch  25 | Batch   600/  650 | Average Loss   0.1095
+training time for epoch  25 is 0:08:59
+Done with epoch  25 | train loss   2.0068 | validation hard recall   0.7591|validation LRAP   0.8324 | validation recall   0.8224| epoch time 0:12:15 
+
+
+Epoch 26
+mining hard negatives
+mining time for epoch  26 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       8200/16237 | Epoch  26 | Batch   150/  650 | Average Loss   0.1655
+Step       8300/16237 | Epoch  26 | Batch   350/  650 | Average Loss   0.0684
+Step       8400/16237 | Epoch  26 | Batch   550/  650 | Average Loss   0.0740
+training time for epoch  26 is 0:08:59
+Done with epoch  26 | train loss   1.9339 | validation hard recall   0.7557|validation LRAP   0.8339 | validation recall   0.8224| epoch time 0:12:14 
+
+
+Epoch 27
+mining hard negatives
+mining time for epoch  27 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       8500/16237 | Epoch  27 | Batch   100/  650 | Average Loss   0.1776
+Step       8600/16237 | Epoch  27 | Batch   300/  650 | Average Loss   0.1290
+Step       8700/16237 | Epoch  27 | Batch   500/  650 | Average Loss   0.0809
+training time for epoch  27 is 0:08:59
+Done with epoch  27 | train loss   1.8663 | validation hard recall   0.7668|validation LRAP   0.8378 | validation recall   0.8302| epoch time 0:12:15 
+------- new best val perf: 0.828378 --> 0.830223 
+
+Epoch 28
+mining hard negatives
+mining time for epoch  28 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       8800/16237 | Epoch  28 | Batch    50/  650 | Average Loss   0.0927
+Step       8900/16237 | Epoch  28 | Batch   250/  650 | Average Loss   0.1709
+Step       9000/16237 | Epoch  28 | Batch   450/  650 | Average Loss   0.1063
+Step       9100/16237 | Epoch  28 | Batch   650/  650 | Average Loss   0.1024
+training time for epoch  28 is 0:09:00
+Done with epoch  28 | train loss   1.8042 | validation hard recall   0.7641|validation LRAP   0.8410 | validation recall   0.8286| epoch time 0:12:15 
+
+
+Epoch 29
+mining hard negatives
+mining time for epoch  29 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       9200/16237 | Epoch  29 | Batch   200/  650 | Average Loss   0.1496
+Step       9300/16237 | Epoch  29 | Batch   400/  650 | Average Loss   0.1121
+Step       9400/16237 | Epoch  29 | Batch   600/  650 | Average Loss   0.1381
+training time for epoch  29 is 0:08:59
+Done with epoch  29 | train loss   1.7465 | validation hard recall   0.7653|validation LRAP   0.8397 | validation recall   0.8302| epoch time 0:12:14 
+------- new best val perf: 0.830223 --> 0.830223 
+
+Epoch 30
+mining hard negatives
+mining time for epoch  30 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       9500/16237 | Epoch  30 | Batch   150/  650 | Average Loss   0.1000
+Step       9600/16237 | Epoch  30 | Batch   350/  650 | Average Loss   0.0891
+Step       9700/16237 | Epoch  30 | Batch   550/  650 | Average Loss   0.1218
+training time for epoch  30 is 0:08:59
+Done with epoch  30 | train loss   1.6918 | validation hard recall   0.7630|validation LRAP   0.8360 | validation recall   0.8282| epoch time 0:12:14 
+
+
+Epoch 31
+mining hard negatives
+mining time for epoch  31 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step       9800/16237 | Epoch  31 | Batch   100/  650 | Average Loss   0.1156
+Step       9900/16237 | Epoch  31 | Batch   300/  650 | Average Loss   0.1061
+Step      10000/16237 | Epoch  31 | Batch   500/  650 | Average Loss   0.0555
+training time for epoch  31 is 0:09:00
+Done with epoch  31 | train loss   1.6404 | validation hard recall   0.7603|validation LRAP   0.8406 | validation recall   0.8253| epoch time 0:12:15 
+
+
+Epoch 32
+mining hard negatives
+mining time for epoch  32 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      10100/16237 | Epoch  32 | Batch    50/  650 | Average Loss   0.1220
+Step      10200/16237 | Epoch  32 | Batch   250/  650 | Average Loss   0.1449
+Step      10300/16237 | Epoch  32 | Batch   450/  650 | Average Loss   0.0446
+Step      10400/16237 | Epoch  32 | Batch   650/  650 | Average Loss   0.1326
+training time for epoch  32 is 0:08:59
+Done with epoch  32 | train loss   1.5924 | validation hard recall   0.7649|validation LRAP   0.8433 | validation recall   0.8276| epoch time 0:12:14 
+
+
+Epoch 33
+mining hard negatives
+mining time for epoch  33 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      10500/16237 | Epoch  33 | Batch   200/  650 | Average Loss   0.0776
+Step      10600/16237 | Epoch  33 | Batch   400/  650 | Average Loss   0.0308
+Step      10700/16237 | Epoch  33 | Batch   600/  650 | Average Loss   0.1003
+training time for epoch  33 is 0:08:59
+Done with epoch  33 | train loss   1.5465 | validation hard recall   0.7618|validation LRAP   0.8419 | validation recall   0.8292| epoch time 0:12:14 
+
+
+Epoch 34
+mining hard negatives
+mining time for epoch  34 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      10800/16237 | Epoch  34 | Batch   150/  650 | Average Loss   0.1002
+Step      10900/16237 | Epoch  34 | Batch   350/  650 | Average Loss   0.1155
+Step      11000/16237 | Epoch  34 | Batch   550/  650 | Average Loss   0.0404
+training time for epoch  34 is 0:09:00
+Done with epoch  34 | train loss   1.5034 | validation hard recall   0.7588|validation LRAP   0.8425 | validation recall   0.8278| epoch time 0:12:16 
+
+
+Epoch 35
+mining hard negatives
+mining time for epoch  35 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      11100/16237 | Epoch  35 | Batch   100/  650 | Average Loss   0.0660
+Step      11200/16237 | Epoch  35 | Batch   300/  650 | Average Loss   0.0791
+Step      11300/16237 | Epoch  35 | Batch   500/  650 | Average Loss   0.1186
+training time for epoch  35 is 0:09:00
+Done with epoch  35 | train loss   1.4630 | validation hard recall   0.7634|validation LRAP   0.8410 | validation recall   0.8290| epoch time 0:12:16 
+
+
+Epoch 36
+mining hard negatives
+mining time for epoch  36 are 0:00:16
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      11400/16237 | Epoch  36 | Batch    50/  650 | Average Loss   0.1007
+Step      11500/16237 | Epoch  36 | Batch   250/  650 | Average Loss   0.0552
+Step      11600/16237 | Epoch  36 | Batch   450/  650 | Average Loss   0.1049
+Step      11700/16237 | Epoch  36 | Batch   650/  650 | Average Loss   0.0612
+training time for epoch  36 is 0:09:04
+Done with epoch  36 | train loss   1.4245 | validation hard recall   0.7641|validation LRAP   0.8433 | validation recall   0.8296| epoch time 0:12:19 
+
+
+Epoch 37
+mining hard negatives
+mining time for epoch  37 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      11800/16237 | Epoch  37 | Batch   200/  650 | Average Loss   0.0877
+Step      11900/16237 | Epoch  37 | Batch   400/  650 | Average Loss   0.0978
+Step      12000/16237 | Epoch  37 | Batch   600/  650 | Average Loss   0.0684
+training time for epoch  37 is 0:09:03
+Done with epoch  37 | train loss   1.3881 | validation hard recall   0.7630|validation LRAP   0.8431 | validation recall   0.8280| epoch time 0:12:18 
+
+
+Epoch 38
+mining hard negatives
+mining time for epoch  38 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      12100/16237 | Epoch  38 | Batch   150/  650 | Average Loss   0.1393
+Step      12200/16237 | Epoch  38 | Batch   350/  650 | Average Loss   0.0444
+Step      12300/16237 | Epoch  38 | Batch   550/  650 | Average Loss   0.0720
+training time for epoch  38 is 0:09:02
+Done with epoch  38 | train loss   1.3544 | validation hard recall   0.7626|validation LRAP   0.8439 | validation recall   0.8274| epoch time 0:12:17 
+
+
+Epoch 39
+mining hard negatives
+mining time for epoch  39 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      12400/16237 | Epoch  39 | Batch   100/  650 | Average Loss   0.1198
+Step      12500/16237 | Epoch  39 | Batch   300/  650 | Average Loss   0.0653
+Step      12600/16237 | Epoch  39 | Batch   500/  650 | Average Loss   0.1099
+training time for epoch  39 is 0:09:00
+Done with epoch  39 | train loss   1.3216 | validation hard recall   0.7691|validation LRAP   0.8401 | validation recall   0.8321| epoch time 0:12:17 
+------- new best val perf: 0.830223 --> 0.832069 
+
+Epoch 40
+mining hard negatives
+mining time for epoch  40 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      12700/16237 | Epoch  40 | Batch    50/  650 | Average Loss   0.0504
+Step      12800/16237 | Epoch  40 | Batch   250/  650 | Average Loss   0.0688
+Step      12900/16237 | Epoch  40 | Batch   450/  650 | Average Loss   0.0418
+Step      13000/16237 | Epoch  40 | Batch   650/  650 | Average Loss   0.0383
+training time for epoch  40 is 0:08:59
+Done with epoch  40 | train loss   1.2898 | validation hard recall   0.7684|validation LRAP   0.8411 | validation recall   0.8323| epoch time 0:12:14 
+------- new best val perf: 0.832069 --> 0.832274 
+
+Epoch 41
+mining hard negatives
+mining time for epoch  41 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      13100/16237 | Epoch  41 | Batch   200/  650 | Average Loss   0.0293
+Step      13200/16237 | Epoch  41 | Batch   400/  650 | Average Loss   0.0770
+Step      13300/16237 | Epoch  41 | Batch   600/  650 | Average Loss   0.0848
+training time for epoch  41 is 0:08:59
+Done with epoch  41 | train loss   1.2598 | validation hard recall   0.7645|validation LRAP   0.8460 | validation recall   0.8310| epoch time 0:12:16 
+
+
+Epoch 42
+mining hard negatives
+mining time for epoch  42 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      13400/16237 | Epoch  42 | Batch   150/  650 | Average Loss   0.0585
+Step      13500/16237 | Epoch  42 | Batch   350/  650 | Average Loss   0.0567
+Step      13600/16237 | Epoch  42 | Batch   550/  650 | Average Loss   0.0386
+training time for epoch  42 is 0:17:00
+Done with epoch  42 | train loss   1.2311 | validation hard recall   0.7672|validation LRAP   0.8470 | validation recall   0.8325| epoch time 0:22:24 
+------- new best val perf: 0.832274 --> 0.832479 
+
+Epoch 43
+mining hard negatives
+mining time for epoch  43 are 0:00:18
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      13700/16237 | Epoch  43 | Batch   100/  650 | Average Loss   0.0447
+Step      13800/16237 | Epoch  43 | Batch   300/  650 | Average Loss   0.0510
+Step      13900/16237 | Epoch  43 | Batch   500/  650 | Average Loss   0.0368
+training time for epoch  43 is 0:16:30
+Done with epoch  43 | train loss   1.2036 | validation hard recall   0.7680|validation LRAP   0.8470 | validation recall   0.8339| epoch time 0:22:01 
+------- new best val perf: 0.832479 --> 0.833914 
+
+Epoch 44
+mining hard negatives
+mining time for epoch  44 are 0:00:18
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      14000/16237 | Epoch  44 | Batch    50/  650 | Average Loss   0.0773
+Step      14100/16237 | Epoch  44 | Batch   250/  650 | Average Loss   0.0801
+Step      14200/16237 | Epoch  44 | Batch   450/  650 | Average Loss   0.0589
+Step      14300/16237 | Epoch  44 | Batch   650/  650 | Average Loss   0.0615
+training time for epoch  44 is 0:17:38
+Done with epoch  44 | train loss   1.1778 | validation hard recall   0.7641|validation LRAP   0.8504 | validation recall   0.8317| epoch time 0:23:08 
+
+
+Epoch 45
+mining hard negatives
+mining time for epoch  45 are 0:00:18
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      14400/16237 | Epoch  45 | Batch   200/  650 | Average Loss   0.0875
+Step      14500/16237 | Epoch  45 | Batch   400/  650 | Average Loss   0.0701
+Step      14600/16237 | Epoch  45 | Batch   600/  650 | Average Loss   0.0668
+training time for epoch  45 is 0:17:39
+Done with epoch  45 | train loss   1.1532 | validation hard recall   0.7626|validation LRAP   0.8468 | validation recall   0.8323| epoch time 0:23:09 
+
+
+Epoch 46
+mining hard negatives
+mining time for epoch  46 are 0:00:18
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      14700/16237 | Epoch  46 | Batch   150/  650 | Average Loss   0.0397
+Step      14800/16237 | Epoch  46 | Batch   350/  650 | Average Loss   0.0563
+Step      14900/16237 | Epoch  46 | Batch   550/  650 | Average Loss   0.0602
+training time for epoch  46 is 0:17:39
+Done with epoch  46 | train loss   1.1292 | validation hard recall   0.7645|validation LRAP   0.8489 | validation recall   0.8325| epoch time 0:23:08 
+
+
+Epoch 47
+mining hard negatives
+mining time for epoch  47 are 0:00:18
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      15000/16237 | Epoch  47 | Batch   100/  650 | Average Loss   0.0465
+Step      15100/16237 | Epoch  47 | Batch   300/  650 | Average Loss   0.0447
+Step      15200/16237 | Epoch  47 | Batch   500/  650 | Average Loss   0.0409
+training time for epoch  47 is 0:09:21
+Done with epoch  47 | train loss   1.1063 | validation hard recall   0.7657|validation LRAP   0.8503 | validation recall   0.8333| epoch time 0:12:42 
+
+
+Epoch 48
+mining hard negatives
+mining time for epoch  48 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      15300/16237 | Epoch  48 | Batch    50/  650 | Average Loss   0.0831
+Step      15400/16237 | Epoch  48 | Batch   250/  650 | Average Loss   0.0326
+Step      15500/16237 | Epoch  48 | Batch   450/  650 | Average Loss   0.0275
+Step      15600/16237 | Epoch  48 | Batch   650/  650 | Average Loss   0.0617
+training time for epoch  48 is 0:08:58
+Done with epoch  48 | train loss   1.0842 | validation hard recall   0.7664|validation LRAP   0.8501 | validation recall   0.8337| epoch time 0:12:14 
+
+
+Epoch 49
+mining hard negatives
+mining time for epoch  49 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      15700/16237 | Epoch  49 | Batch   200/  650 | Average Loss   0.0499
+Step      15800/16237 | Epoch  49 | Batch   400/  650 | Average Loss   0.0235
+Step      15900/16237 | Epoch  49 | Batch   600/  650 | Average Loss   0.0308
+training time for epoch  49 is 0:08:58
+Done with epoch  49 | train loss   1.0628 | validation hard recall   0.7657|validation LRAP   0.8503 | validation recall   0.8329| epoch time 0:12:14 
+
+
+Epoch 50
+mining hard negatives
+mining time for epoch  50 are 0:00:17
+/anaconda/envs/entqa/lib/python3.8/site-packages/torch/nn/parallel/_functions.py:65: UserWarning: Was asked to gather along dimension 0, but all input tensors were scalars; will instead unsqueeze and return a vector.
+  warnings.warn('Was asked to gather along dimension 0, but all '
+Step      16000/16237 | Epoch  50 | Batch   150/  650 | Average Loss   0.0460
+Step      16100/16237 | Epoch  50 | Batch   350/  650 | Average Loss   0.0416
+Step      16200/16237 | Epoch  50 | Batch   550/  650 | Average Loss   0.0254
+training time for epoch  50 is 0:08:58
+Done with epoch  50 | train loss   1.0423 | validation hard recall   0.7649|validation LRAP   0.8497 | validation recall   0.8325| epoch time 0:12:13 
+
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.dense.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Data parallel across 4 GPUs 4,5,6,7
+getting test mention embeddings ...
+test inference time 0:00:18
+ test hard recall@100 :   0.7405| test LRAP :   0.8280| test recall :   0.8061| 
+saving test pairs
+val inference time 0:00:17 |val infer time per instance 0:00:00.006749
+ val hard recall@100 :   0.7680| val LRAP :   0.8470| val recall :   0.8339| 
+saving val pairs
+saving train pairs
+experiments time 11:17:29

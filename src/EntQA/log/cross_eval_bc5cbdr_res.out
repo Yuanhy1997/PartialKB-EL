@@ -1,0 +1,44 @@
+Namespace(B=4, adam_epsilon=1e-06, add_topic=True, blink=True, cands_embeds_path='/mnt/data/run/BC5CDR_res/cache_embedding_shift/candidate_embeds.npy', clip=1, cross_eval=True, data_dir='/mnt/data/Generative-End2End-IE/dataset/BC5CDR/retriever_input_res/', entity_bsz=2048, epochs=0, fp16=False, fp16_opt_level='O1', gpus='4,5,6,7', gradient_accumulation_steps=2, init_model='/mnt/data/run/BC5CDR/retriever.pt', k=100, kb_dir='/mnt/data/Generative-End2End-IE/dataset/BC5CDR/kb_res/', logging_steps=100, lr=2e-06, max_len=128, mention_bsz=4096, model='/mnt/data/run/BC5CDR/retriever.pt', num_cands=64, num_workers=0, out_dir='/mnt/data/run/BC5CDR_res/reader_input_shift/', pretrained_path='/mnt/data/blink/', rands_ratio=0.9, resume_training=False, seed=42, simpleoptim=False, type_loss='sum_log_nce', use_cached_embeds=False, use_gpu_index=False, use_title=True, warmup_proportion=0.2, weight_decay=0.01)
+Using device: cuda
+begin loading data
+number of entities 256937
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.weight', 'cls.predictions.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias', 'cls.seq_relationship.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.weight', 'cls.predictions.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias', 'cls.seq_relationship.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+/anaconda/envs/entqa/lib/python3.8/site-packages/transformers/optimization.py:306: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+Data parallel across 4 GPUs 4,5,6,7
+/home/klu/EntQA/data_retriever.py:70: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  labels = np.array(labels)
+***** train *****
+# train samples: 2598
+# val samples: 2599
+# test samples: 2744
+# epochs: 0
+ batch size : 4
+ gradient accumulation steps 2
+ effective training batch size with accumulation: 8
+ # training steps: 0
+ # warmup steps: 0
+ learning rate: 2e-06
+ # parameters: 670283776
+get candidates embeddings
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.weight', 'cls.predictions.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias', 'cls.seq_relationship.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of the model checkpoint at bert-large-uncased were not used when initializing BertModel: ['cls.predictions.transform.dense.weight', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias', 'cls.seq_relationship.weight', 'cls.predictions.bias', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias', 'cls.seq_relationship.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Data parallel across 4 GPUs 4,5,6,7
+getting test mention embeddings ...
+test inference time 0:00:18
+ test hard recall@100 :   0.7041| test LRAP :   0.8021| test recall :   0.7773| 
+saving test pairs
+val inference time 0:00:17 |val infer time per instance 0:00:00.006755
+ val hard recall@100 :   0.7187| val LRAP :   0.8128| val recall :   0.7984| 
+saving val pairs
+saving train pairs
+experiments time 0:04:30
