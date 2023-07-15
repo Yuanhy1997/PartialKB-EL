@@ -13,7 +13,7 @@ Biomedical entity linking (EL) consists of named entity recognition (NER) and na
 <center>
     <a target="_blank"><img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);"
-    src="./bionlp2023-poster.pdf"></a>
+    src="./poster.png"></a>
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
