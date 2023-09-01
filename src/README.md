@@ -12,6 +12,8 @@ preprocessing of medmentions, first clone the raw dataset from te above link, an
 
 Google Drive: [link](https://drive.google.com/drive/folders/0ADcHGax5A4G7Uk9PVA)
 
+If you find troubles access the above link, please refer to this [issue](https://github.com/Yuanhy1997/PartialKB-EL/issues/1).
+
 ## Baselines
 
 [EntQA](https://github.com/WenzhengZhang/EntQA)
